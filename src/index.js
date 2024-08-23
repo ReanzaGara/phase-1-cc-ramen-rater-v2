@@ -2,7 +2,7 @@
 
 // Callbacks
 const handleClick = (ramen) => {
-  // Add code
+  const clickedRamenId = ramen.target.dataset.ramenId;
 };
 
 const addSubmitListener = () => {
@@ -10,7 +10,16 @@ const addSubmitListener = () => {
 }
 
 const displayRamens = () => {
-  // Add code
+  const ramenMenuDiv = document.querySelector('#ramen-menu');
+
+  displayRamens.forEach((ramen) => {
+    const ramenImage = document.createElement('img');
+    ramenImage.src = ramen.image;
+    ramenImage.alt = ramen.name;
+    ramenImage.dataset.ramenId = ramen.id;
+    ramenImage.addEventListener('click', handleClick);
+    ramenMenuDiv.appendChild(ramenImage);
+  })
 };
 
 const main = () => {
