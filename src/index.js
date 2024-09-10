@@ -2,29 +2,35 @@
 
 // Callbacks
 const handleClick = (ramen) => {
-  const clickedRamenId = ramen.target.dataset.ramenId;
+  const clickedRamen = ramen.target;
+  const ramenDetailDiv = document.getElementById('#ramen-detail');
 };
 
 const addSubmitListener = () => {
-  // Add code
+  const newRamenForm = document.getElementById('#new-ramen');
+  newRamenForm.addEventListener('submit', function(ramen) {
+    ramen.preventDefault();
+  })
 }
 
-const displayRamens = () => {
-  const ramenMenuDiv = document.querySelector('#ramen-menu');
-
-  displayRamens.forEach((ramen) => {
-    const ramenImage = document.createElement('img');
-    ramenImage.src = ramen.image;
-    ramenImage.alt = ramen.name;
-    ramenImage.dataset.ramenId = ramen.id;
-    ramenImage.addEventListener('click', handleClick);
-    ramenMenuDiv.appendChild(ramenImage);
+const displayRamens =() => {
+  fetch('/ramen')
+  .then(response => response.json())
+  .then(data => {
+    const ramenMenuDiv = document.getElementById('#ramen-menu');
+    data.forEach(ramen => {
+      const img = document.createElement('img');
+      img.src = ramen.image;
+      img.addEventListener('click', handleClick);
+      ramenMenuDiv.appendChild(img);
+    })
   })
-};
+
+}
 
 const main = () => {
-  // Invoke displayRamens here
-  // Invoke addSubmitListener here
+  displayRamens();
+  addSubmitListener();
 }
 
 main()
