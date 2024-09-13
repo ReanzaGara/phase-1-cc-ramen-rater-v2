@@ -1,25 +1,33 @@
 // index.js
 
+
+
 // Callbacks
 const handleClick = (ramen) => {
-  const clickedRamen = ramen.target;
-  fetch(`http://localhost:3000/ramens`)
-  .then(response => response.json())
-  .then(ramen => {
-    const ramenDetailDiv = document.getElementById('ramen-detail');
-    const detailImg = ramenDetailDiv.querySelector('.detail-image');
-    const detailName = ramenDetailDiv.querySelector('.name');
-    const detailRestaurant = ramenDetailDiv.querySelector('restaurant');
-    const detailRating = ramenDetailDiv.querySelector('#rating-display');
-    const detailComment = ramenDetailDiv.querySelector('#comment-display');
-console.log('fetched ramen:', ramen);
-    detailImg.src = ramen.img || '';
-    detailName.textContent = ramen.name || 'No Name';
-    detailRestaurant.textContent = ramen.restaurant || 'No Restaurant';
-    detailRating.textContent = ramen.rating || 'No Rating';
-    detailComment.textContent = ramen.comment || 'No comment';
-  })
+  const clickedRamenId = ramen.target.dataset.id;
 
+  fetch(`http://localhost:3000/ramens`)
+    .then(response => response.json())
+    .then(ramens => {
+      
+      const selectedRamen = ramens.find(ramen => ramen.id == clickedRamenId);
+
+      if (selectedRamen) {
+        const ramenDetailDiv = document.getElementById('ramen-detail');
+        const detailImg = ramenDetailDiv.querySelector('.detail-image');
+        const detailName = ramenDetailDiv.querySelector('.name');
+        const detailRestaurant = ramenDetailDiv.querySelector('.restaurant'); // Fixed selector
+        const detailRating = ramenDetailDiv.querySelector('#rating-display');
+        const detailComment = ramenDetailDiv.querySelector('#comment-display');
+
+        detailImg.src = selectedRamen.image || '';
+        detailName.textContent = selectedRamen.name || 'No Name';
+        detailRestaurant.textContent = selectedRamen.restaurant || 'No Restaurant';
+        detailRating.textContent = selectedRamen.rating || 'No Rating';
+        detailComment.textContent = selectedRamen.comment || 'No comment';
+      }
+    })
+    .catch(error => console.error('Error fetching ramen data:', error));
 };
 
 const addSubmitListener = () => {
