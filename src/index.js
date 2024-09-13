@@ -3,8 +3,9 @@
 // Callbacks
 const handleClick = (ramen) => {
   const clickedRamen = ramen.target;
-  const ramenDetailDiv = document.getElementById('#ramen-detail');
+  const ramenDetailDiv = document.getElementById('ramen-detail');
 };
+ramenDetailDiv.innerHTML = '<img src="${clickedRamen.src}" alt="Ramen Image">';
 
 const addSubmitListener = () => {
   const newRamenForm = document.getElementById('#new-ramen');
@@ -17,7 +18,7 @@ const displayRamens =() => {
   fetch('/ramen')
   .then(response => response.json())
   .then(data => {
-    const ramenMenuDiv = document.getElementById('#ramen-menu');
+    const ramenMenuDiv = document.getElementById('ramen-menu');
     data.forEach(ramen => {
       const img = document.createElement('img');
       img.src = ramen.image;
