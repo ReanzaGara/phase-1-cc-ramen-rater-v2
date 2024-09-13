@@ -2,17 +2,24 @@
 
 // Callbacks
 const handleClick = (ramen) => {
-  const clickedRmaen = ramen.target;
-  fetch('https://localhost:3000/ramens')
+  const clickedRamen = ramen.target;
+  fetch(`http://localhost:3000/ramens`)
   .then(response => response.json())
   .then(ramen => {
     const ramenDetailDiv = document.getElementById('ramen-detail');
-    ramenDetailDiv.querySelector('.detail-image').src = ramen.image;
-    ramenDetailDiv.querySelector('.name').src = ramen.name;
-    ramenDetailDiv.querySelector('.restaurant').textContent = ramen.name;
-    ramenDetailDiv.querySelector('#rating-display').textContent = ramen.rating;
-    ramenDetailDiv.querySelector('#comment-display').textContent = ramen.comment;
+    const detailImg = ramenDetailDiv.querySelector('.detail-image');
+    const detailName = ramenDetailDiv.querySelector('.name');
+    const detailRestaurant = ramenDetailDiv.querySelector('restaurant');
+    const detailRating = ramenDetailDiv.querySelector('#rating-display');
+    const detailComment = ramenDetailDiv.querySelector('#comment-display');
+console.log('fetched ramen:', ramen);
+    detailImg.src = ramen.img || '';
+    detailName.textContent = ramen.name || 'No Name';
+    detailRestaurant.textContent = ramen.restaurant || 'No Restaurant';
+    detailRating.textContent = ramen.rating || 'No Rating';
+    detailComment.textContent = ramen.comment || 'No comment';
   })
+
 };
 
 const addSubmitListener = () => {
