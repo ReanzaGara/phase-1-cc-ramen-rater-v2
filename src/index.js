@@ -11,10 +11,10 @@ const handleClick = (ramen) => {
     //display each ramen detail
     const ramenDetailDiv = document.getElementById('ramen-detail');
     ramenDetailDiv.querySelector('.detail-image').src=ramen.image;
-    ramenDetailDiv.querySelector('name').textContent=ramen.name;
+    ramenDetailDiv.querySelector('.name').textContent=ramen.name;
     ramenDetailDiv.querySelector('.restaurant').textContent=ramen.restaurant;
     ramenDetailDiv.querySelector('#rating-display').textContent=ramen.rating;
-    ramenDetailDiv.querySelector('@comment-display').textContent=ramen.comment;
+    ramenDetailDiv.querySelector('#comment-display').textContent=ramen.comment;
   })
 };
 
@@ -25,21 +25,29 @@ const addSubmitListener = () => {
   })
 }
 
-const displayRamens =() => {
-  fetch('https://localhost:3000/ramens')
-  .then(response => response.json())
-  .then(data => {
-    const ramenMenuDiv = document.getElementById('ramen-menu');
-    data.forEach(ramen => {
-      const img = document.createElement('img');
-      img.src=ramen.img;
-      img.dataset.id=ramen.id;
-      img.addEventListener('click', handleClick);
-      ramenMenuDiv.appendChild(img);
-    }
-    )
-  })
-}
+const displayRamens = () => {
+  fetch('http://localhost:3000/ramens')
+    .then(response => response.json())
+    .then(data => {
+      const ramenMenuDiv = document.getElementById('ramen-menu');
+      
+      ramenMenuDiv.innerHTML = '';
+
+      data.forEach(ramen => {
+        // Check if the ramen object has a valid image URL
+        if (ramen.image) {
+          const img = document.createElement('img');
+          img.src = ramen.image;
+          img.dataset.id = ramen.id;
+          img.addEventListener('click', handleClick);
+          ramenMenuDiv.appendChild(img);
+        } else {
+          console.error(`Ramen object missing image field:`, ramen);
+        }
+      });
+    })
+};
+
 
 const main = () => {
   document.addEventListener('DOMContentLoaded', () => {
