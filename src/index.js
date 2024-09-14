@@ -31,33 +31,51 @@ const handleClick = (ramen) => {
 const addSubmitListener = () => {
   const newRamenForm = document.getElementById('new-ramen');
 
-  newRamenForm.addEventListener('submit', (event) => {
-    event.preventDefault();
+  newRamenForm.addEventListener('submit', (ramen) => {
+    ramen.preventDefault();
 
     const newRamen = {
-      name: event.target['name'].value,
-      restaurant: event.target['restaurant'].value,
-      image: event.target['image'].value,
-      rating: event.target['rating'].value,
-      comment: event.target['new-comment'].value,
+      name: ramen.target['name'].value,
+      restaurant: ramen.target['restaurant'].value,
+      image: ramen.target['image'].value,
+      rating: ramen.target['rating'].value,
+      comment: ramen.target['new-comment'].value,
     };
 
+    console.log('New Ramen Object:', newRamen);
 
     const ramenMenuDiv = document.getElementById('ramen-menu');
     const img = document.createElement('img');
     img.src = newRamen.image;
     img.alt = newRamen.name;
 
-    img.addEventListener('click', () => {
-      const ramenDetailDiv = document.getElementById('ramen-detail');
-      ramenDetailDiv.querySelector('detail-image').src = newRamen.image;
-      ramenDetailDiv.querySelector('.name').textContent = newRamen.name;
-      ramenDetailDiv.querySelector('.restaurant').textContent = newRamen.restaurant;
-      ramenDetailDiv.querySelector('#rating-display').textContent = newRamen.rating;
-      ramenDetailDiv.querySelector('#comment-display').textContent = newRamen.comment;
-    });
-
     ramenMenuDiv.appendChild(img);
+    console.log('Appended Image Element:', img);
+
+    img.addEventListener('click', () => {
+      console.log('Image clicked:', newRamen.name);
+
+      const ramenDetailDiv = document.getElementById('ramen-detail');
+      const detailImg = ramenDetailDiv.querySelector('.detail-image');
+      const detailName = ramenDetailDiv.querySelector('.name');
+      const detailRestaurant = ramenDetailDiv.querySelector('.restaurant');
+      const detailsRating = ramenDetailDiv.querySelector('#rating-display');
+      const detailsComment = ramenDetailDiv.querySelector('#comment-display');
+
+      detailImg.src = newRamen.image;
+      detailName.textContent = newRamen.name;
+      detailRestaurant.textContent = newRamen.restaurant;
+      detailsRating.textContent = newRamen.rating.toString();
+      detailsComment.textContent = newRamen.comment;
+
+      console.log('Updated Ramen Details:', {
+        detailImg: detailImg.src,
+        detailName: detailName.textContent,
+        detailRestaurant: detailRestaurant.textContent,
+        detailsRating: detailsRating.textContent,
+        detailsComment: detailsComment.textContent,
+      });
+    });
   });
 };
 
