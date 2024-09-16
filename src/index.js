@@ -42,7 +42,6 @@ const addSubmitListener = () => {
       comment: ramen.target['new-comment'].value,
     };
 
-    console.log('New Ramen Object:', newRamen);
 
     const ramenMenuDiv = document.getElementById('ramen-menu');
     const img = document.createElement('img');
@@ -50,7 +49,6 @@ const addSubmitListener = () => {
     img.alt = newRamen.name;
 
     ramenMenuDiv.appendChild(img);
-    console.log('Appended Image Element:', img);
 
     img.addEventListener('click', () => {
       console.log('Image clicked:', newRamen.name);
@@ -67,13 +65,6 @@ const addSubmitListener = () => {
       detailRestaurant.textContent = newRamen.restaurant;
       detailsRating.textContent = newRamen.rating.toString();
       detailsComment.textContent = newRamen.comment;
-
-      console.log('Updated Ramen Details:', {
-        detailImg: detailImg.src,
-        detailName: detailName.textContent,
-        detailRestaurant: detailRestaurant.textContent,
-        detailsRating: detailsRating.textContent,
-        detailsComment: detailsComment.textContent,
       });
     });
   });
@@ -88,7 +79,7 @@ const displayRamens = () => {
       ramenMenuDiv.innerHTML = '';
 
       data.forEach(ramen => {
-        // Check if the ramen has a valid image URL
+        
         if (ramen.image) {
           const img = document.createElement('img');
           img.src = ramen.image;
