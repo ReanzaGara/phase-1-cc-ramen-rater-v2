@@ -2,10 +2,11 @@
 
 // Callbacks
 const handleClick = (ramen) => {
-  document.getElementById('ramen-name').textContent = ramen.name;
-  document.getElementById('ramen-img').src = ramen.image;
-  document.getElementById('ramen-rating').textContent = `Rating: ${ramen.rating}`;
-  document.getElementById('ramen-comment').textContent = `Comment: ${ramen.comment}`;
+  document.querySelector('.name').textContent = ramen.name;
+  document.querySelector('.detail-image').src = ramen.image;
+  document.querySelector('.restaurant').textContent = ramen.restaurant;
+  document.getElementById('rating-display').textContent = `Rating: ${ramen.rating}`;
+  document.getElementById('comment-display').textContent = `Comment: ${ramen.comment}`;
 }
 
 const addSubmitListener = () => {
@@ -16,15 +17,27 @@ const addSubmitListener = () => {
 
     const newRamen = {
       name: form.name.value,
+      restaurant: form.restaurant.value,
       image: form.image.value,
-      rating: form.rating.value,
-      comment: form.comment.value
+      rating: form['new-ramen-rating'].value,
+      comment: form['new-ramen-comment'].value
     };
 
     addNewRamenToMenu(newRamen);
 
     form.reset();
   });
+}
+
+const addNewRamenToMenu(ramen) {
+  const ramenMenu = document.getElementById('ramen-menu');
+  const img = document.createElement('img');
+  img.src = ramen.image;
+  img.alt = ramen.name;
+
+  img.addEventListener('click', () => handleClick(ramen));
+
+  ramenMenu.appendChild(img);
 }
 
 const displayRamens = () => {
