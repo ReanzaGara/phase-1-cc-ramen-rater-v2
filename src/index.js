@@ -2,31 +2,11 @@
 
 // Callbacks
 const handleClick = (ramen) => {
-  const clickedRamenId = ramen.target.dataset.id;
-
-  fetch(`http://localhost:3000/ramens`)
-    .then(response => response.json())
-    .then(ramens => {
-      
-      const selectedRamen = ramens.find(ramen => ramen.id == clickedRamenId);
-
-      if (selectedRamen) {
-        const ramenDetailDiv = document.getElementById('ramen-detail');
-        const detailImg = ramenDetailDiv.querySelector('.detail-image');
-        const detailName = ramenDetailDiv.querySelector('.name');
-        const detailRestaurant = ramenDetailDiv.querySelector('.restaurant');
-        const detailRating = ramenDetailDiv.querySelector('#rating-display');
-        const detailComment = ramenDetailDiv.querySelector('#comment-display');
-
-        detailImg.src = selectedRamen.image || '';
-        detailName.textContent = selectedRamen.name || 'No Name';
-        detailRestaurant.textContent = selectedRamen.restaurant || 'No Restaurant';
-        detailRating.textContent = selectedRamen.rating || 'No Rating';
-        detailComment.textContent = selectedRamen.comment || 'No comment';
-      }
-    })
-    .catch(error => console.error('Error fetching ramen data:', error));
-};
+  document.getElementById('ramen-name').textContent = ramen.name;
+  document.getElementById('ramen-img').src = ramen.image;
+  document.getElementById('ramen-rating').textContent = `Rating: ${ramen.rating}`;
+  document.getElementById('ramen-comment').textContent = `Comment: ${ramen.comment}`;
+}
 
 const addSubmitListener = () => {
   const newRamenForm = document.getElementById('new-ramen');
