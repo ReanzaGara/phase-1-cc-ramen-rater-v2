@@ -29,26 +29,21 @@ const addSubmitListener = () => {
 
 const displayRamens = () => {
   fetch('http://localhost:3000/ramens')
-    .then(response => response.json())
-    .then(data => {
-      const ramenMenuDiv = document.getElementById('ramen-menu');
-      
-      ramenMenuDiv.innerHTML = '';
+  .then(response => response.json())
+  .then(data => {
+    const ramenMenu = document.getElementById('ramen-menu');
+    ramenMenu.innerHTML = '';
 
-      data.forEach(ramen => {
-        
-        if (ramen.image) {
-          const img = document.createElement('img');
-          img.src = ramen.image;
-          img.dataset.id = ramen.id;
-          img.addEventListener('click', handleClick);
-          ramenMenuDiv.appendChild(img);
-        } else {
-          console.error(`Ramen object missing image field:`, ramen);
-        }
-      });
+    data.forEach(ramen => {
+      const img = document.createElement('img');
+      img.src = ramen.image;
+      img.alt = ramen.name;
+      img.addEventListener('click', () => handleClick(ramen));
+      ramenMenu.appendChild(img);
     })
-};
+  })
+  .catch(error => console.log('Error fetching ramens:', error));
+}
 
 
 const main = () => {
