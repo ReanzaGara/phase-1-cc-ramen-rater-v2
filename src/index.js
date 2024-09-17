@@ -9,46 +9,23 @@ const handleClick = (ramen) => {
 }
 
 const addSubmitListener = () => {
-  const newRamenForm = document.getElementById('new-ramen');
+  const form = document.getElementById('new-ramen');
 
-  newRamenForm.addEventListener('submit', (ramen) => {
+  form.addEventListener('submit', ramen => {
     ramen.preventDefault();
 
     const newRamen = {
-      name: ramen.target['name'].value,
-      restaurant: ramen.target['restaurant'].value,
-      image: ramen.target['image'].value,
-      rating: ramen.target['rating'].value,
-      comment: ramen.target['new-comment'].value,
+      name: form.name.value,
+      image: form.image.value,
+      rating: form.rating.value,
+      comment: form.comment.value
     };
 
+    addNewRamenToMenu(newRamen);
 
-    const ramenMenuDiv = document.getElementById('ramen-menu');
-    const img = document.createElement('img');
-    img.src = newRamen.image;
-    img.alt = newRamen.name;
-
-    ramenMenuDiv.appendChild(img);
-
-    img.addEventListener('click', () => {
-      console.log('Image clicked:', newRamen.name);
-
-      const ramenDetailDiv = document.getElementById('ramen-detail');
-      const detailImg = ramenDetailDiv.querySelector('.detail-image');
-      const detailName = ramenDetailDiv.querySelector('.name');
-      const detailRestaurant = ramenDetailDiv.querySelector('.restaurant');
-      const detailsRating = ramenDetailDiv.querySelector('#rating-display');
-      const detailsComment = ramenDetailDiv.querySelector('#comment-display');
-
-      detailImg.src = newRamen.image;
-      detailName.textContent = newRamen.name;
-      detailRestaurant.textContent = newRamen.restaurant;
-      detailsRating.textContent = newRamen.rating.toString();
-      detailsComment.textContent = newRamen.comment;
-      });
-    });
+    form.reset();
   });
-};
+}
 
 const displayRamens = () => {
   fetch('http://localhost:3000/ramens')
