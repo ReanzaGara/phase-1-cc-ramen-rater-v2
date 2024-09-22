@@ -1,5 +1,6 @@
 // index.js
-
+const ramenAPI = 'http://localhost:3000/ramens';
+const ramenMenu = document.getElementById('ramen-menu');
 // Callbacks
 const handleClick = (ramen) => {
   document.querySelector('.name').textContent = ramen.name;
@@ -14,12 +15,18 @@ const addSubmitListener = () => {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    const nameInput = form.elements['new-name'];
+    const restaurantInput = form.elements['new-restaurant'];
+    const imageInput = form.elements['new-image'];
+    const ratingInput = form.elements['new-rating'];
+    const commentInput = form.elements['new-comment'];
+
     const newRamen = {
-      name: form.name.value,
-      restaurant: form.restaurant.value,
-      image: form.image.value,
-      rating: form['new-rating'].value,
-      comment: form['new-comment'].value
+      name: nameInput.value,
+      restaurant: restaurantInput.value,
+      image: imageInput.value,
+      rating: ratingInput.value,
+      comment: commentInput.value
     };
 
     addNewRamenToMenu(newRamen);
@@ -28,7 +35,6 @@ const addSubmitListener = () => {
 }
 
 const addNewRamenToMenu = (ramen)  => {
-  const ramenMenu = document.getElementById('ramen-menu');
   const img = document.createElement('img');
   img.src = ramen.image;
   img.alt = ramen.name;
@@ -38,30 +44,29 @@ const addNewRamenToMenu = (ramen)  => {
 };
 
 const displayRamens = () => {
-  fetch('http://localhost:3000/ramens')
-  .then(response => response.json())
-  .then(data => {
-    const ramenMenu = document.getElementById('ramen-menu');
-    ramenMenu.innerHTML = '';
+  fetch(ramenAPI)
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(ramen => {
+        const img = document.createElement('img');
+        img.src = ramen.image;
+        ramenMenu.append(img);
 
-    data.forEach(ramen => {
-      const img = document.createElement('img');
-      img.src = ramen.image;
-      img.alt = ramen.name;
-      img.addEventListener('click', () => handleClick(ramen));
-      ramenMenu.appendChild(img);
+        img.addEventListener('click', () => handleClick(ramen));
+        
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching ramens:', error);
     });
-  })
-  .catch(error => console.log('Error fecthing ramens:', error));
-}
+};
+
 
 
 
 const main = () => {
-  document.addEventListener('DOMContentLoaded', () => {
     displayRamens();
     addSubmitListener();
-  })
 }
 
 main()

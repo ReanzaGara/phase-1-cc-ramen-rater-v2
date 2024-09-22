@@ -14,40 +14,54 @@
   </header>
 
   
-  <div id="ramen-menu"></div>
+  <div id="ramen-menu">
+
+  </div>
 
 
   <div id="ramen-detail">
-    <img class="detail-image" src="" alt="Ramen Image" />
-    <h2 class="name">Name</h2>
+    <img class="detail-image" src="./assets/image-placeholder.jpg" alt="Ramen Image" />
+    <h2 class="name"></h2>
     <h3 class="restaurant"></h3>
-    <p id="rating-display">No Rating</p>
-    <p id="comment-display">No Comment</p>
   </div>
 
+  <h3>Rating:</h3>
+  <p>
+    <span id="rating-display">Insert rating here</span> / 10
+  </p>
+  <h3>Comment:</h3>
+  <p id="comment-display">
+    Insert comment here
+  </p>
 
 
   <form id="new-ramen">
     <h4>Add New Ramen</h4>
     <label for="new-name">Name: </label>
-    <input type="text" name="name" id="new-name" />
+    <input type="text" name="name" id="new-name"  autocomplete="name"/>
+  
     <label for="new-restaurant">Restaurant: </label>
-    <input type="text" name="restaurant" id="new-restaurant" />
+    <input type="text" name="restaurant" id="new-restaurant"  autocomplete="organization"/>
+  
     <label for="new-image">Image: </label>
-    <input type="text" name="image" id="new-image" />
+    <input type="text" name="image" id="new-image"  />
+  
     <label for="new-rating">Rating: </label>
-    <input type="number" name="rating" id="new-ramen-rating" />
+    <input type="number" name="rating" id="new-rating"  />
+  
     <label for="new-comment">Comment: </label>
-    <textarea name="new-comment" id="new-ramen-comment"></textarea>
+    <textarea name="comment" id="new-comment" autocomplete="comment"></textarea>
+  
     <input type="submit" id='submit-button' value="Create" />
   </form>
+  
 
   <form id="edit-ramen">
     <h4>Update the Featured Ramen</h4>
     <label for="edit-rating">Rating: </label>
     <input type="number" name="rating" id="edit-rating" />
     <label for="edit-comment">Comment: </label>
-    <textarea name="new-comment" id="edit-comment"></textarea>
+    <textarea name="new-comment" id="edit-comment" autocomplete="comment"></textarea>
     <input type="submit" value="Update" />
   </form>
 
